@@ -109,7 +109,7 @@ The `Emailit` facade gives you direct access to the full [Emailit PHP SDK](https
 use Emailit\Laravel\Facades\Emailit;
 
 // Send an email via the API directly
-$email = Emailit::emails->send([
+$email = Emailit::emails()->send([
     'from'    => 'hello@yourdomain.com',
     'to'      => ['user@example.com'],
     'subject' => 'Hello from Emailit',
@@ -125,7 +125,7 @@ echo $email->status;
 ```php
 use Emailit\Laravel\Facades\Emailit;
 
-$email = Emailit::emails->send([
+$email = Emailit::emails()->send([
     'from'      => 'hello@yourdomain.com',
     'to'        => 'user@example.com',
     'template'  => 'welcome_email',
@@ -141,8 +141,8 @@ $email = Emailit::emails->send([
 ```php
 use Emailit\Laravel\Facades\Emailit;
 
-$domain = Emailit::domains->create(['name' => 'example.com']);
-$domains = Emailit::domains->list();
+$domain = Emailit::domains()->create(['name' => 'example.com']);
+$domains = Emailit::domains()->list();
 ```
 
 ### Manage Contacts
@@ -150,12 +150,12 @@ $domains = Emailit::domains->list();
 ```php
 use Emailit\Laravel\Facades\Emailit;
 
-$contact = Emailit::contacts->create([
+$contact = Emailit::contacts()->create([
     'email' => 'user@example.com',
     'first_name' => 'John',
 ]);
 
-$contacts = Emailit::contacts->list();
+$contacts = Emailit::contacts()->list();
 ```
 
 ### Verify Email Addresses
@@ -163,7 +163,7 @@ $contacts = Emailit::contacts->list();
 ```php
 use Emailit\Laravel\Facades\Emailit;
 
-$result = Emailit::emailVerifications->verify([
+$result = Emailit::emailVerifications()->verify([
     'email' => 'test@example.com',
 ]);
 
@@ -177,18 +177,18 @@ The Facade exposes every service from the PHP SDK:
 
 | Service | Property | Description |
 |---------|----------|-------------|
-| Emails | `Emailit::emails` | Send, list, get, cancel, retry emails |
-| Domains | `Emailit::domains` | Create, verify, list, manage sending domains |
-| API Keys | `Emailit::apiKeys` | Create, list, manage API keys |
-| Audiences | `Emailit::audiences` | Create, list, manage audiences |
-| Subscribers | `Emailit::subscribers` | Add, list, manage subscribers |
-| Templates | `Emailit::templates` | Create, list, publish email templates |
-| Suppressions | `Emailit::suppressions` | Create, list, manage suppressed addresses |
-| Email Verifications | `Emailit::emailVerifications` | Verify email addresses |
-| Email Verification Lists | `Emailit::emailVerificationLists` | Bulk email verification |
-| Webhooks | `Emailit::webhooks` | Create, list, manage webhooks |
-| Contacts | `Emailit::contacts` | Create, list, manage contacts |
-| Events | `Emailit::events` | List and retrieve events |
+| Emails | `Emailit::emails()` | Send, list, get, cancel, retry emails |
+| Domains | `Emailit::domains()` | Create, verify, list, manage sending domains |
+| API Keys | `Emailit::apiKeys()` | Create, list, manage API keys |
+| Audiences | `Emailit::audiences()` | Create, list, manage audiences |
+| Subscribers | `Emailit::subscribers()` | Add, list, manage subscribers |
+| Templates | `Emailit::templates()` | Create, list, publish email templates |
+| Suppressions | `Emailit::suppressions()` | Create, list, manage suppressed addresses |
+| Email Verifications | `Emailit::emailVerifications()` | Verify email addresses |
+| Email Verification Lists | `Emailit::emailVerificationLists()` | Bulk email verification |
+| Webhooks | `Emailit::webhooks()` | Create, list, manage webhooks |
+| Contacts | `Emailit::contacts()` | Create, list, manage contacts |
+| Events | `Emailit::events()` | List and retrieve events |
 
 ## Error Handling
 
@@ -199,7 +199,7 @@ use Emailit\Exceptions\ApiErrorException;
 use Emailit\Laravel\Facades\Emailit;
 
 try {
-    Emailit::emails->send([...]);
+    Emailit::emails()->send([...]);
 } catch (AuthenticationException $e) {
     // Invalid API key (401)
 } catch (RateLimitException $e) {
@@ -221,7 +221,7 @@ class EmailController extends Controller
 {
     public function send(EmailitClient $emailit)
     {
-        $email = $emailit->emails->send([
+        $email = $emailit->emails()->send([
             'from'    => 'hello@yourdomain.com',
             'to'      => ['user@example.com'],
             'subject' => 'Hello',

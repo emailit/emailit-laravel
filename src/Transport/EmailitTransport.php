@@ -58,7 +58,7 @@ class EmailitTransport extends AbstractTransport
             unset($payload['attachments']);
         }
 
-        $response = $this->client->emails->send($payload);
+        $response = $this->client->emails()->send($payload);
 
         if (isset($response->id)) {
             $message->getOriginalMessage()->getHeaders()->addTextHeader('X-Emailit-Email-ID', $response->id);

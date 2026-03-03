@@ -48,7 +48,12 @@ class Emailit extends Facade
             throw new \RuntimeException('A facade root has not been set.');
         }
 
-        if (empty($args) && ! method_exists($instance, $method)) {
+        if (method_exists($instance, $method) || method_exists($instance, '__call')) {
+            return $instance->$method(...$args);
+        }
+
+        // Fallback to property access for older SDK versions using __get
+        if (empty($args)) {
             return $instance->$method;
         }
 

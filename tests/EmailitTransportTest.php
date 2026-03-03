@@ -18,7 +18,7 @@ function createTransportWithMock(Closure $expectations): EmailitTransport
     $expectations($emailService);
 
     $client = Mockery::mock(EmailitClient::class);
-    $client->emails = $emailService;
+    $client->shouldReceive('emails')->andReturn($emailService);
 
     return new EmailitTransport($client);
 }
