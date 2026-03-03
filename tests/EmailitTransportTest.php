@@ -318,7 +318,7 @@ it('excludes reply_to when not set', function () {
     $transport->send($email);
 });
 
-it('adds X-Emailit-ID header when response has id', function () {
+it('adds X-Emailit-Email-ID header when response has id', function () {
     $transport = createTransportWithMock(function ($emailService) {
         $emailService->shouldReceive('send')
             ->once()
@@ -333,7 +333,7 @@ it('adds X-Emailit-ID header when response has id', function () {
 
     $sentMessage = $transport->send($email);
 
-    expect($sentMessage->getOriginalMessage()->getHeaders()->get('X-Emailit-ID')?->getBodyAsString())
+    expect($sentMessage->getOriginalMessage()->getHeaders()->get('X-Emailit-Email-ID')?->getBodyAsString())
         ->toBe('msg_header_123');
 });
 
@@ -352,7 +352,7 @@ it('does not add header when response has no id', function () {
 
     $sentMessage = $transport->send($email);
 
-    expect($sentMessage->getOriginalMessage()->getHeaders()->get('X-Emailit-ID'))->toBeNull();
+    expect($sentMessage->getOriginalMessage()->getHeaders()->get('X-Emailit-Email-ID'))->toBeNull();
 });
 
 it('sends multiple reply-to addresses as array', function () {
