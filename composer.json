@@ -1,0 +1,51 @@
+{
+    "name": "emailit/emailit-laravel",
+    "description": "Laravel integration for the Emailit Email API",
+    "keywords": ["emailit", "email", "laravel", "mail", "transport"],
+    "homepage": "https://emailit.com",
+    "authors": [
+        {
+            "name": "Emailit",
+            "email": "support@emailit.com",
+            "homepage": "https://emailit.com"
+        }
+    ],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": "^8.1",
+        "emailit/emailit-php": "^2.0",
+        "illuminate/mail": "^10.0|^11.0|^12.0",
+        "illuminate/support": "^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0|^10.0",
+        "pestphp/pest": "^1.0|^2.0|^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Emailit\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Emailit\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Emailit\\Laravel\\EmailitServiceProvider"
+            ],
+            "aliases": {
+                "Emailit": "Emailit\\Laravel\\Facades\\Emailit"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
