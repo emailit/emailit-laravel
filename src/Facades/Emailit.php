@@ -18,18 +18,18 @@ use Emailit\Service\WebhookService;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @property-read EmailService $emails
- * @property-read DomainService $domains
- * @property-read ApiKeyService $apiKeys
- * @property-read AudienceService $audiences
- * @property-read SubscriberService $subscribers
- * @property-read TemplateService $templates
- * @property-read SuppressionService $suppressions
- * @property-read EmailVerificationService $emailVerifications
- * @property-read EmailVerificationListService $emailVerificationLists
- * @property-read WebhookService $webhooks
- * @property-read ContactService $contacts
- * @property-read EventService $events
+ * @method static EmailService emails()
+ * @method static DomainService domains()
+ * @method static ApiKeyService apiKeys()
+ * @method static AudienceService audiences()
+ * @method static SubscriberService subscribers()
+ * @method static TemplateService templates()
+ * @method static SuppressionService suppressions()
+ * @method static EmailVerificationService emailVerifications()
+ * @method static EmailVerificationListService emailVerificationLists()
+ * @method static WebhookService webhooks()
+ * @method static ContactService contacts()
+ * @method static EventService events()
  *
  * @see EmailitClient
  */
@@ -38,5 +38,20 @@ class Emailit extends Facade
     protected static function getFacadeAccessor(): string
     {
         return EmailitClient::class;
+    }
+
+    public static function __callStatic($method, $args)
+    {
+        $instance = static::getFacadeRoot();
+
+        if (! $instance) {
+            throw new \RuntimeException('A facade root has not been set.');
+        }
+
+        if (empty($args) && ! method_exists($instance, $method)) {
+            return $instance->$method;
+        }
+
+        return $instance->$method(...$args);
     }
 }
